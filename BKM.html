@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BKM Function</title>
+    <link rel="shortcut icon" href="./miraic.ico" type="image/x-icon">
+    <link rel="stylesheet" href="BKM.css">
+    
+</head>
+<body>
+    <div class="menu">
+        <button id="vpm-btn">VPM</button>
+        <button id="pls-btn">PLS</button>
+    </div>
+    <div class="main-content hidden">
+        <div id="resultado">0 %</div>
+        <div class="input-group">
+            <label for="entrada1">META:</label>
+            <input type="text" id="entrada1">
+        </div>
+        <div class="input-group">
+            <label for="entrada2">REAL:</label>
+            <input type="text" id="entrada2">
+        </div>
+        <div class="button-group">
+            <button id="calcular-btn"><i class="fas fa-calculator"></i> Calcular</button>
+            <button id="limpar-btn"><i class="fas fa-eraser"></i> Limpar</button>
+        </div>
+        <button id="back-to-menu-btn"><i class="fas fa-arrow-left"></i> Voltar ao Menu</button>
+    </div>
+
+    <script>
+        document.getElementById("vpm-btn").addEventListener("click", function() {
+            document.querySelector(".menu").classList.add("hidden");
+            document.querySelector(".main-content").classList.remove("hidden");
+        });
+
+        document.getElementById("pls-btn").addEventListener("click", function() {
+            // Adicione a funcionalidade desejada para o botão PLS aqui
+            alert("PLS em manutenção!");
+        });
+
+        document.getElementById("calcular-btn").addEventListener("click", function() {
+            const entrada1 = document.getElementById("entrada1").value.replace(',', '.');
+            const entrada2 = document.getElementById("entrada2").value.replace(',', '.');
+
+            try {
+                const valor1 = parseFloat(entrada1);
+                const valor2 = parseFloat(entrada2);
+                if (isNaN(valor1) || isNaN(valor2) || valor1 === 0) {
+                    throw new Error("Valor inválido");
+                }
+
+                const resultado = Math.floor((valor2 / valor1 - 1) * 100);
+                const resultadoLabel = document.getElementById("resultado");
+                resultadoLabel.innerHTML = `${resultado} %`;
+
+                const corTexto = resultado > 0 ? "#bade57" : "#d11e48";
+                resultadoLabel.style.color = corTexto;
+
+            } catch (error) {
+                const resultadoLabel = document.getElementById("resultado");
+                resultadoLabel.innerHTML = "Erro!";
+                resultadoLabel.style.color = "#d11e48";
+            }
+        });
+
+        document.getElementById("limpar-btn").addEventListener("click", function() {
+            document.getElementById("entrada1").value = "";
+            document.getElementById("entrada2").value = "";
+            document.getElementById("resultado").innerHTML = "0 %";
+            document.getElementById("resultado").style.color = "white";
+        });
+
+        document.getElementById("back-to-menu-btn").addEventListener("click", function() {
+            document.querySelector(".main-content").classList.add("hidden");
+            document.querySelector(".menu").classList.remove("hidden");
+        });
+    </script>
+
+    <footer>
+        <section>
+            <div class="burocratico">
+                <p style="color: rgb(209, 209, 209);"> © 2025 Geeki Framer, Inc. Todos os direitos reservados.</p>
+            </div>
+        </section>
+    </footer>
+</body>
+</html>
